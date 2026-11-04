@@ -1,0 +1,32 @@
+# Regenerable exploit payload bodies (multi-MB; recipes in the README/docs)
+*.bin
+
+# Captured responses, logs, and run artifacts
+*.resp
+*.log
+*.txt.log
+engine_*
+eng_*
+arb_*
+ld_*
+lg_*
+watch_*
+probe_*
+shot_*
+run_*
+dbg_*
+kl_*
+k?_*.bin
+
+# Python
+__pycache__/
+*.pyc
+
+# EDB page capture used only by scripts/extract_exp.py (fetch separately)
+ext/
+
+# Editor / OS noise
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

@@ -1,0 +1,35 @@
+services:
+  web:
+    image: php:8.5.11-apache
+    container_name: cfphpctf-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docroot:/var/www/html
+      - ./php-conf/zz-lab.ini:/usr/local/etc/php/conf.d/zz-lab.ini:ro
+
+  # L0 strict baseline: stock defaults only (cleanup=1, memory_limit=128M,
+  # post_max_size=8M, display_errors=On via compiled defaults, no php.ini).
+  web-strict:
+    image: php:8.5.11-apache
+    container_name: cfphpctf-strict
+    ports:
+      - "8082:80"
+    volumes:
+      - ./docroot:/var/www/html
+
+  # ASAN-instrumented build of the same stack (see asan/Dockerfile).
+  # Zend MM disabled + ASAN so uninitialized-use / UAF in request parsing
+  # is observable. Slower; used for trigger analysis, not performance.
+  web-asan:
+    build: ./asan
+    container_name: cfphpctf-asan
+    ports:
+      - "8091:80"
+    volumes:
+      - ./docroot:/var/www/html
+      - ./php-conf/zz-lab.ini:/usr/local/etc/php/conf.d/zz-lab.ini:ro
+      - ./php-conf/zz-asan-runtime.ini:/usr/local/etc/php/conf.d/zz0-asan-runtime.ini:ro
+    environment:
+      USE_ZEND_ALLOC: "0"
+      ASAN_OPTIONS: "detect_leaks=0:abort_on_error=1:log_path=/tmp/asan:allocator_may_return_null=1:max_allocation_size_mb=64"
