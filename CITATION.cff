@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+title: "Cloudflare PHP CTF — php2shell WAF-bypass research (negative result)"
+message: "If you use this research in your work, please cite it using this metadata."
+type: generic
+authors:
+  - name: Nam
+    alias: ncpz
+    website: "https://github.com/ncpz"
+repository-code: "https://github.com/ncpz/cloudflare-php-ctf-research"
+abstract: "Negative-result security research on the Cloudflare PHP CTF (php-rce.cloudflare.app): the complete three-stage php2shell chain (CVE-2026-109618/109619) — session-state OOM arm, overlong Set-Cookie heap disclosure, ROP RCE — built and verified against a byte-comparable lab replica of the challenge sandbox, plus original findings (cookie-emission laws, armed-state walk oracle, byte-exact state razor, forge mechanics) and a proof that the surviving arm method is fused with Cloudflare's WAF OOM detections (divisor argument on 53,320 nesting units)."
+keywords:
+  - php
+  - waf
+  - ctf
+  - security-research
+  - php2shell
+  - heap-exploitation
+license: MIT
+date-released: "2026-11-05"
